@@ -6,6 +6,20 @@
 vim.keymap.set("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
 vim.keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
 
+-- Rename (hanya di file saat ini)
+vim.keymap.set("n", "<leader>rr", [[:%s/\<<C-r><C-w>\>/]], {
+  noremap = true,
+  silent = false,
+  desc = "Rename in current buffer only",
+})
+
+-- Rename berdasarkan teks yang diseleksi
+vim.keymap.set("v", "<leader>re", 'y:%s/<C-r>"/', {
+  noremap = true,
+  silent = false,
+  desc = "Rename selected text in buffer",
+})
+
 local opts = { noremap = true, silent = true }
 
 for _, mode in ipairs({ "v", "n", "x" }) do
