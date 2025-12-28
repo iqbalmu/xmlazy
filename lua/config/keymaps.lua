@@ -49,3 +49,22 @@ vim.keymap.set("n", "<M-Down>", "<cmd>m+<cr>", opts)
 vim.keymap.set("i", "<M-Down>", "<cmd>m+<cr>", opts)
 vim.keymap.set("n", "<M-Up>", "<cmd>m-2<cr>", opts)
 vim.keymap.set("i", "<M-Up>", "<cmd>m-2<cr>", opts)
+
+-- Toggle terminal dengan Ctrl+\ dari terminal mode
+vim.keymap.set("t", "<C-\\>", [[<C-\><C-n>:ToggleTerm<CR>]], { desc = "Toggle terminal from terminal mode" })
+
+-- Window navigation dari terminal mode (Ctrl + hjkl)
+-- Pakai Ctrl karena Alt sudah dipakai untuk move text
+vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], { desc = "Go to left window" })
+vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], { desc = "Go to lower window" })
+vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], { desc = "Go to upper window" })
+vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], { desc = "Go to right window" })
+
+-- Scroll Horizontal Cepat dengan Alt + h/l
+-- (Angka '20' bisa diubah sesuai kecepatan yang diinginkan)
+vim.keymap.set("n", "<A-l>", "20zl", { desc = "Scroll View Right" })
+vim.keymap.set("n", "<A-h>", "20zh", { desc = "Scroll View Left" })
+
+-- Opsi Tambahan: Dukungan tombol Panah (Arrow Keys) dengan Alt
+vim.keymap.set("n", "<A-Right>", "20zl", { desc = "Scroll View Right" })
+vim.keymap.set("n", "<A-Left>", "20zh", { desc = "Scroll View Left" })
