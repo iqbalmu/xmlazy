@@ -12,10 +12,10 @@ return {
           follow = true,
         },
         explorer = {
-          auto_close = true,
+          auto_close = false,
           hidden = true,
           layout = {
-            preset = "default",
+            preset = "sidebar",
           },
         },
       },

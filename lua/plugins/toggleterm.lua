@@ -7,7 +7,7 @@ return {
         if term.direction == "horizontal" then
           return 15
         elseif term.direction == "vertical" then
-          return vim.o.columns * 0.4 -- 40% lebar layar
+          return vim.o.columns * 0.25 -- % lebar layar
         end
       end,
       open_mapping = [[<c-\>]], -- Toggle dari normal mode
