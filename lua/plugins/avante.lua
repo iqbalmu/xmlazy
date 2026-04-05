@@ -1,6 +1,7 @@
 return {
   {
     "yetone/avante.nvim",
+    enabled = false,
     opts = function(_, opts)
       opts.provider = "zai"
       opts.providers = opts.providers or {}
