@@ -53,12 +53,18 @@ vim.keymap.set("i", "<M-Up>", "<cmd>m-2<cr>", opts)
 -- Toggle terminal dengan Ctrl+\ dari terminal mode
 vim.keymap.set("t", "<C-\\>", [[<C-\><C-n>:ToggleTerm<CR>]], { desc = "Toggle terminal from terminal mode" })
 
--- Window navigation dari terminal mode (Ctrl + hjkl)
--- Pakai Ctrl karena Alt sudah dipakai untuk move text
-vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], { desc = "Go to left window" })
-vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], { desc = "Go to lower window" })
-vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], { desc = "Go to upper window" })
-vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], { desc = "Go to right window" })
+-- Window navigation dengan Ctrl+Shift+Arrow (ganti Ctrl+hjkl)
+-- Normal mode: navigasi window
+vim.keymap.set("n", "<C-S-Left>", "<C-w>h", { desc = "Go to left window" })
+vim.keymap.set("n", "<C-S-Down>", "<C-w>j", { desc = "Go to lower window" })
+vim.keymap.set("n", "<C-S-Up>", "<C-w>k", { desc = "Go to upper window" })
+vim.keymap.set("n", "<C-S-Right>", "<C-w>l", { desc = "Go to right window" })
+
+-- Terminal mode: navigasi window
+vim.keymap.set("t", "<C-S-Left>", [[<C-\><C-n><C-w>h]], { desc = "Go to left window" })
+vim.keymap.set("t", "<C-S-Down>", [[<C-\><C-n><C-w>j]], { desc = "Go to lower window" })
+vim.keymap.set("t", "<C-S-Up>", [[<C-\><C-n><C-w>k]], { desc = "Go to upper window" })
+vim.keymap.set("t", "<C-S-Right>", [[<C-\><C-n><C-w>l]], { desc = "Go to right window" })
 
 -- Scroll Horizontal Cepat dengan Alt + h/l
 -- (Angka '20' bisa diubah sesuai kecepatan yang diinginkan)
