@@ -2,6 +2,12 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
+-- PHP Language Server
+vim.g.lazyvim_php_lsp = "phpactor"
+
+-- Laravel Pint formatter
+vim.g.lazyvim_formatters = { php = { "pint" } }
+
 -- Mengaktifkan dukungan mouse sepenuhnya (klik, scroll, resize split)
 vim.opt.mouse = "a"
 
