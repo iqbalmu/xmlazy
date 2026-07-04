@@ -74,3 +74,5 @@ vim.keymap.set("n", "<A-h>", "20zh", { desc = "Scroll View Left" })
 -- Opsi Tambahan: Dukungan tombol Panah (Arrow Keys) dengan Alt
 vim.keymap.set("n", "<A-Right>", "20zl", { desc = "Scroll View Right" })
 vim.keymap.set("n", "<A-Left>", "20zh", { desc = "Scroll View Left" })
+
+require("config.flutter-keymaps")

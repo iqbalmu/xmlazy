@@ -12,6 +12,7 @@ return {
       end,
       open_mapping = [[<c-\>]], -- Toggle dari normal mode
       direction = "vertical", -- default float, bisa override per command
+
       -- float_opts = {
       --   border = "curved",
       -- },

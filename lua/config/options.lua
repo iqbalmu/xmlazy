@@ -22,3 +22,5 @@ vim.opt.wrap = false
 
 -- (Opsional) Virtual edit agar posisi scroll tidak reset
 vim.opt.virtualedit = "all"
+
+vim.opt.shell = "fish"

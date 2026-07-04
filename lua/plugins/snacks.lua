@@ -16,6 +16,7 @@ return {
           hidden = true,
           layout = {
             preset = "sidebar",
+            width = 0.25,
           },
         },
       },
@@ -25,47 +26,47 @@ return {
         preset = "telescope", -- defaults to this layout unless overidden
         cycle = false,
       },
-layouts = {
-    telescope = {
-      layout = {
-        box = "vertical",
-        backdrop = false,
-        width = 0.7,
-        height = 0.8,
-        border = "none",
-        {
-          box = "vertical",
-          {
-            win = "input",
-            height = 1,
-            border = "rounded",
-            title = "{title} {live} {flags}",
-            title_pos = "center",
+      layouts = {
+        telescope = {
+          layout = {
+            box = "vertical",
+            backdrop = false,
+            width = 0.7,
+            height = 0.8,
+            border = "none",
+            {
+              box = "vertical",
+              {
+                win = "input",
+                height = 1,
+                border = "rounded",
+                title = "{title} {live} {flags}",
+                title_pos = "center",
+              },
+              { win = "list", title = " Results ", title_pos = "center", border = "rounded" },
+            },
+            {
+              win = "preview",
+              title = "{preview:Preview}",
+              -- width = 0.50,
+              border = "rounded",
+              title_pos = "center",
+            },
           },
-          { win = "list", title = " Results ", title_pos = "center", border = "rounded" },
-        },
-        {
-          win = "preview",
-          title = "{preview:Preview}",
-          -- width = 0.50,
-          border = "rounded",
-          title_pos = "center",
         },
       },
-    },
-  },
-  actions = {
-    opencode_send = function(...)
-      return require("opencode").snacks_picker_send(...)
-    end,
-  },
-  win = {
-    input = {
-      keys = {
-        ["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
+      actions = {
+        opencode_send = function(...)
+          return require("opencode").snacks_picker_send(...)
+        end,
       },
-    },
-  },
+      win = {
+        input = {
+          keys = {
+            ["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
+          },
+        },
+      },
     },
   },
 }
