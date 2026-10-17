@@ -8,3 +8,13 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 require("config.flutter-autocmds")
+
+-- Matikan spell checker khusus markdown/mdx (LazyVim menyalakannya via grup
+-- `lazyvim_wrap_spell`; autocmd ini terdaftar sesudahnya sehingga menang).
+-- Wrap tetap aktif seperti default; toggle manual: <leader>uw
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "markdown.mdx" },
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})
