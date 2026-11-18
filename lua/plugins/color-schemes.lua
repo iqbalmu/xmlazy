@@ -64,6 +64,9 @@ return {
   {
     "olimorris/onedarkpro.nvim",
     priority = 1001,
+    cond = function()
+      return not has_caelestia_scheme()
+    end,
     config = function()
       require("onedarkpro").setup({
         options = {

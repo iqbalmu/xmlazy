@@ -124,7 +124,7 @@ return {
         explorer = {
           auto_close = false,
           hidden = true,
-          ignored = true, -- show gitignored files (e.g. .env)
+          ignored = false,
           layout = {
             preset = "sidebar",
             width = 0.25,

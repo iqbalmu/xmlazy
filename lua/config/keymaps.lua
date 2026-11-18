@@ -9,8 +9,8 @@ map("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
 
 -- Rename within current buffer only
-map("n", "<leader>rr", [[:%s/\<<C-r><C-w>\>/]], { desc = "Rename in current buffer" })
-map("v", "<leader>re", 'y:%s/<C-r>"/', { desc = "Rename selected text in buffer" })
+map("n", "<leader>rr", [[:%s/\<<C-r><C-w>\>//g<Left><Left>]], { desc = "Rename in current buffer" })
+map("v", "<leader>re", 'y:%s/<C-r>"//g<Left><Left>', { desc = "Rename selected text in buffer" })
 
 -- Save file
 map({ "n", "v", "x" }, "<C-s>", "<cmd>silent! w<cr>", { silent = true, desc = "Save file" })
