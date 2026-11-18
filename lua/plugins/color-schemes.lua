@@ -55,6 +55,11 @@ local function watch()
   })
 end
 
+local function has_caelestia_scheme()
+  local state_home = os.getenv("XDG_STATE_HOME") or ((os.getenv("HOME") or "") .. "/.local/state")
+  return (vim.uv or vim.loop).fs_stat(state_home .. "/caelestia/scheme.json") ~= nil
+end
+
 return {
   {
     "olimorris/onedarkpro.nvim",
@@ -95,8 +100,11 @@ return {
         end,
       })
 
-      M.apply(system_mode() or "dark")
-      watch()
+      -- Stay out of the way when caelestia is managing the colorscheme
+      if not has_caelestia_scheme() then
+        M.apply(system_mode() or "dark")
+        watch()
+      end
     end,
   },
 }

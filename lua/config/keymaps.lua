@@ -25,10 +25,22 @@ map("x", "<A-S-Down>", ":'<,'>t'><cr>", { silent = true, desc = "Duplicate selec
 map("x", "<A-S-Up>", ":'<,'>t-1<cr>", { silent = true, desc = "Duplicate selection up" })
 
 -- Move lines up and down
-map({ "n", "i" }, "<A-Down>", "<cmd>m+<cr>", { silent = true, desc = "Move line down" })
-map({ "n", "i" }, "<A-Up>", "<cmd>m-2<cr>", { silent = true, desc = "Move line up" })
-map("x", "<A-Down>", ":move '>+1<CR>gv-gv", { silent = true, desc = "Move selection down" })
-map("x", "<A-Up>", ":move '<-2<CR>gv-gv", { silent = true, desc = "Move selection up" })
+map("n", "<A-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", { silent = true, desc = "Move line down" })
+map("n", "<A-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", { silent = true, desc = "Move line up" })
+map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { silent = true, desc = "Move line down" })
+map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { silent = true, desc = "Move line up" })
+map(
+  "x",
+  "<A-Down>",
+  ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv",
+  { silent = true, desc = "Move selection down" }
+)
+map(
+  "x",
+  "<A-Up>",
+  ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv",
+  { silent = true, desc = "Move selection up" }
+)
 
 -- Window navigation with Ctrl+Shift+Arrow (alternative to Ctrl+hjkl)
 map("n", "<C-S-Left>", "<C-w>h", { desc = "Go to left window" })
