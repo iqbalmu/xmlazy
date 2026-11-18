@@ -5,22 +5,17 @@
 -- PHP Language Server
 vim.g.lazyvim_php_lsp = "phpactor"
 
--- Laravel Pint formatter
-vim.g.lazyvim_formatters = { php = { "pint" } }
-
--- Mengaktifkan dukungan mouse sepenuhnya (klik, scroll, resize split)
+-- Enable full mouse support (click, scroll, resize splits)
 vim.opt.mouse = "a"
 
--- Aktifkan scrolling horizontal secara smooth/halus
-vim.opt.sidescroll = 1 -- Scroll 1 karakter per kali (bukan loncat setengah layar)
+-- Smooth horizontal scrolling (1 character at a time instead of half-screen jumps)
+vim.opt.sidescroll = 1
+vim.opt.sidescrolloff = 8
 
--- Jaga jarak dari tepi kanan/kiri layar (seperti scrolloff tapi horizontal)
-vim.opt.sidescrolloff = 8 -- Mulai scroll ketika kursor 8 kolom dari tepi
-
--- Matikan line wrapping agar horizontal scroll berfungsi
+-- Disable line wrapping so horizontal scrolling works
 vim.opt.wrap = false
 
--- (Opsional) Virtual edit agar posisi scroll tidak reset
+-- Allow cursor anywhere past EOL so scroll position does not reset
 vim.opt.virtualedit = "all"
 
 vim.opt.shell = "fish"

@@ -2,77 +2,46 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- Prev/Next buffer dengan Tab / Shift Tab
-vim.keymap.set("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
-vim.keymap.set("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
+local map = vim.keymap.set
 
--- Rename (hanya di file saat ini)
-vim.keymap.set("n", "<leader>rr", [[:%s/\<<C-r><C-w>\>/]], {
-  noremap = true,
-  silent = false,
-  desc = "Rename in current buffer only",
-})
+-- Buffer navigation with Tab / Shift-Tab
+map("n", "<Tab>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next Buffer" })
+map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev Buffer" })
 
--- Rename berdasarkan teks yang diseleksi
-vim.keymap.set("v", "<leader>re", 'y:%s/<C-r>"/', {
-  noremap = true,
-  silent = false,
-  desc = "Rename selected text in buffer",
-})
+-- Rename within current buffer only
+map("n", "<leader>rr", [[:%s/\<<C-r><C-w>\>/]], { desc = "Rename in current buffer" })
+map("v", "<leader>re", 'y:%s/<C-r>"/', { desc = "Rename selected text in buffer" })
 
-local opts = { noremap = true, silent = true }
+-- Save file
+map({ "n", "v", "x" }, "<C-s>", "<cmd>silent! w<cr>", { silent = true, desc = "Save file" })
+map("i", "<C-s>", "<Esc><cmd>silent! w<cr>", { silent = true, desc = "Save file" })
 
-for _, mode in ipairs({ "v", "n", "x" }) do
-  -- duplicate line
-  vim.keymap.set(mode, "<S-Down>", "<cmd>t.<cr>", opts)
-  vim.keymap.set(mode, "<S-Up>", "<cmd>t -1<cr>", opts)
+-- Duplicate line (uses Alt+Shift since Shift+Arrow is used for scrolling in Ghostty)
+map({ "n", "v" }, "<A-S-Down>", "<cmd>t.<cr>", { silent = true, desc = "Duplicate line down" })
+map({ "n", "v" }, "<A-S-Up>", "<cmd>t -1<cr>", { silent = true, desc = "Duplicate line up" })
+map("i", "<A-S-Down>", "<Esc><cmd>t.<cr>gi", { silent = true, desc = "Duplicate line down" })
+map("i", "<A-S-Up>", "<Esc><cmd>t -1<cr>gi", { silent = true, desc = "Duplicate line up" })
+map("x", "<A-S-Down>", ":'<,'>t'><cr>", { silent = true, desc = "Duplicate selection down" })
+map("x", "<A-S-Up>", ":'<,'>t-1<cr>", { silent = true, desc = "Duplicate selection up" })
 
-  -- save file
-  vim.keymap.set(mode, "<C-s>", "<cmd>silent! w<cr>", opts)
-end
+-- Move lines up and down
+map({ "n", "i" }, "<A-Down>", "<cmd>m+<cr>", { silent = true, desc = "Move line down" })
+map({ "n", "i" }, "<A-Up>", "<cmd>m-2<cr>", { silent = true, desc = "Move line up" })
+map("x", "<A-Down>", ":move '>+1<CR>gv-gv", { silent = true, desc = "Move selection down" })
+map("x", "<A-Up>", ":move '<-2<CR>gv-gv", { silent = true, desc = "Move selection up" })
 
--- In insert mode: Ctrl+S = save and go to normal mode
-vim.keymap.set("i", "<C-s>", "<Esc><cmd>silent! w<cr>", opts)
+-- Window navigation with Ctrl+Shift+Arrow (alternative to Ctrl+hjkl)
+map("n", "<C-S-Left>", "<C-w>h", { desc = "Go to left window" })
+map("n", "<C-S-Down>", "<C-w>j", { desc = "Go to lower window" })
+map("n", "<C-S-Up>", "<C-w>k", { desc = "Go to upper window" })
+map("n", "<C-S-Right>", "<C-w>l", { desc = "Go to right window" })
+map("t", "<C-S-Left>", [[<C-\><C-n><C-w>h]], { desc = "Go to left window" })
+map("t", "<C-S-Down>", [[<C-\><C-n><C-w>j]], { desc = "Go to lower window" })
+map("t", "<C-S-Up>", [[<C-\><C-n><C-w>k]], { desc = "Go to upper window" })
+map("t", "<C-S-Right>", [[<C-\><C-n><C-w>l]], { desc = "Go to right window" })
 
--- Insert mode: Duplicate line below and above
-vim.keymap.set("i", "<S-Down>", "<Esc><cmd>t.<cr>gi", opts)
-vim.keymap.set("i", "<S-Up>", "<Esc><cmd>t -1<cr>gi", opts)
-
--- duplicate line visual block
-vim.keymap.set("x", "<S-Down>", ":'<,'>t'><cr>", opts)
-vim.keymap.set("x", "<S-Up>", ":'<,'>t-1<cr>", opts)
-
--- move text up and down
-vim.keymap.set("x", "<A-Down>", ":move '>+1<CR>gv-gv", opts)
-vim.keymap.set("x", "<A-Up>", ":move '<-2<CR>gv-gv", opts)
-vim.keymap.set("n", "<M-Down>", "<cmd>m+<cr>", opts)
-vim.keymap.set("i", "<M-Down>", "<cmd>m+<cr>", opts)
-vim.keymap.set("n", "<M-Up>", "<cmd>m-2<cr>", opts)
-vim.keymap.set("i", "<M-Up>", "<cmd>m-2<cr>", opts)
-
--- Toggle terminal dengan Ctrl+\ dari terminal mode
-vim.keymap.set("t", "<C-\\>", [[<C-\><C-n>:ToggleTerm<CR>]], { desc = "Toggle terminal from terminal mode" })
-
--- Window navigation dengan Ctrl+Shift+Arrow (ganti Ctrl+hjkl)
--- Normal mode: navigasi window
-vim.keymap.set("n", "<C-S-Left>", "<C-w>h", { desc = "Go to left window" })
-vim.keymap.set("n", "<C-S-Down>", "<C-w>j", { desc = "Go to lower window" })
-vim.keymap.set("n", "<C-S-Up>", "<C-w>k", { desc = "Go to upper window" })
-vim.keymap.set("n", "<C-S-Right>", "<C-w>l", { desc = "Go to right window" })
-
--- Terminal mode: navigasi window
-vim.keymap.set("t", "<C-S-Left>", [[<C-\><C-n><C-w>h]], { desc = "Go to left window" })
-vim.keymap.set("t", "<C-S-Down>", [[<C-\><C-n><C-w>j]], { desc = "Go to lower window" })
-vim.keymap.set("t", "<C-S-Up>", [[<C-\><C-n><C-w>k]], { desc = "Go to upper window" })
-vim.keymap.set("t", "<C-S-Right>", [[<C-\><C-n><C-w>l]], { desc = "Go to right window" })
-
--- Scroll Horizontal Cepat dengan Alt + h/l
--- (Angka '20' bisa diubah sesuai kecepatan yang diinginkan)
-vim.keymap.set("n", "<A-l>", "20zl", { desc = "Scroll View Right" })
-vim.keymap.set("n", "<A-h>", "20zh", { desc = "Scroll View Left" })
-
--- Opsi Tambahan: Dukungan tombol Panah (Arrow Keys) dengan Alt
-vim.keymap.set("n", "<A-Right>", "20zl", { desc = "Scroll View Right" })
-vim.keymap.set("n", "<A-Left>", "20zh", { desc = "Scroll View Left" })
-
-require("config.flutter-keymaps")
+-- Fast horizontal scrolling with Alt+h/l or Alt+Left/Right
+map("n", "<A-l>", "20zl", { desc = "Scroll view right" })
+map("n", "<A-h>", "20zh", { desc = "Scroll view left" })
+map("n", "<A-Right>", "20zl", { desc = "Scroll view right" })
+map("n", "<A-Left>", "20zh", { desc = "Scroll view left" })

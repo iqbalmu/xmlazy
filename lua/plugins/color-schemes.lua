@@ -13,13 +13,19 @@ local M = { applied = nil }
 local function system_mode()
   -- 'prefer-dark' -> dark; 'default' / 'prefer-light' / unreadable -> light
   local ok, out = pcall(vim.fn.system, { "gsettings", "get", "org.gnome.desktop.interface", "color-scheme" })
-  if not ok or vim.v.shell_error ~= 0 then return nil end
-  if out:find("prefer-dark", 1, true) then return "dark" end
+  if not ok or vim.v.shell_error ~= 0 then
+    return nil
+  end
+  if out:find("prefer-dark", 1, true) then
+    return "dark"
+  end
   return "light"
 end
 
 function M.apply(mode)
-  if M.applied == mode then return end
+  if M.applied == mode then
+    return
+  end
   M.applied = mode
   -- onedarkpro doesn't set background itself; keep it in sync so plugins
   -- reading vim.o.background agree with the active theme
@@ -33,7 +39,9 @@ end
 
 local function watch()
   -- No gsettings (headless/SSH): nothing to track, initial theme stands
-  if vim.fn.executable("gsettings") ~= 1 then return end
+  if vim.fn.executable("gsettings") ~= 1 then
+    return
+  end
   vim.fn.jobstart({ "gsettings", "monitor", "org.gnome.desktop.interface", "color-scheme" }, {
     on_stdout = function(_, data)
       local txt = type(data) == "table" and table.concat(data, "\n") or ""
@@ -78,7 +86,9 @@ return {
       vim.api.nvim_create_autocmd("ColorScheme", {
         pattern = "*",
         callback = function()
-          if vim.o.background ~= "dark" then return end
+          if vim.o.background ~= "dark" then
+            return
+          end
           for group, spec in pairs(dark_hl) do
             vim.api.nvim_set_hl(0, group, spec)
           end
